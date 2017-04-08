@@ -1,5 +1,5 @@
 # EmojiClock
-[![Elixir](https://img.shields.io/badge/%F0%9F%95%91-Elixir-blue.svg)]
+[![Elixir](https://img.shields.io/badge/%F0%9F%95%91-Elixir-blue.svg)](https://github.com/nathanhornby/emojiclock-elixir)
 [![Code Climate](https://codeclimate.com/github/nathanhornby/emojiclock-elixir/badges/gpa.svg)](https://codeclimate.com/github/nathanhornby/emojiclock-elixir) [![Hex.pm](https://img.shields.io/hexpm/v/emojiclock.svg)](https://hex.pm/packages/emojiclock)
 [![Hexdocs](https://img.shields.io/badge/docs-hexdocs-blue.svg)](https://hexdocs.pm/emojiclock/readme.html)
 
