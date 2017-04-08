@@ -6,8 +6,8 @@
 An Elixir module for giving you an emoji clock for a given hour. See the [API reference](https://hexdocs.pm/emojiclock/EmojiClock.html) for the many available input formats.
 
 ```elixir
-  iex> EmojiClock.time!(~T[02:17:47.179])
-  "🕑"
+iex> EmojiClock.time!(~T[02:17:47.179])
+"🕑"
 ```
 
 ## Installing EmojiClock
@@ -35,9 +35,9 @@ end
 The `EmojiClock` module has several functions, all of which return an emoji clock `bitstring`. Every function that accepts an argument has a `!` variant, which should be used if you trust your input and want to get straight to the emoji.
 
 ```elixir
-  iex> EmojiClock.unix(475359803)
-  {:ok, "🕗"}
+iex> EmojiClock.unix(475359803)
+{:ok, "🕗"}
 
-  iex> EmojiClock.unix!(475359803)
-  "🕗"
+iex> EmojiClock.unix!(475359803)
+"🕗"
 ```
