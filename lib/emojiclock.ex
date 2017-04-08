@@ -40,7 +40,7 @@ defmodule EmojiClock do
       iex> EmojiClock.now("+8")
       {:error, :invalid_argument}
   """
-  @spec now(integer) :: {atom, String.t}
+  @spec now(integer) :: {:ok, String.t}
   def now(offset \\ 0)
   def now(offset) when is_integer(offset) do
     formated_time = format_time(Timex.local)
@@ -48,7 +48,7 @@ defmodule EmojiClock do
     {:ok, emoji(hour_with_offset)}
   end
 
-  @spec now(term) :: {atom, atom}
+  @spec now(term) :: {:error, :invalid_argument}
   def now(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
@@ -86,11 +86,11 @@ defmodule EmojiClock do
       iex> EmojiClock.hour(16)
       {:error, :invalid_argument}
   """
-  @spec hour(non_neg_integer) :: {atom, String.t}
+  @spec hour(non_neg_integer) :: {:ok, String.t}
   def hour(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
     {:ok, emoji(hour)}
   end
-  @spec hour(term) :: {atom, atom}
+  @spec hour(term) :: {:error, :invalid_argument}
   def hour(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
@@ -124,18 +124,18 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.unix("4753598030")
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.unix("clock pls")
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
   """
-  @spec unix(pos_integer) :: {atom, String.t}
+  @spec unix(pos_integer) :: {:ok, String.t}
   def unix(timestamp) when is_integer(timestamp) do
     {:ok, do_unix(timestamp)}
   end
 
-  @spec unix(term) :: {atom, atom}
-  def unix(_input), do: {:error, :invalid_type}
+  @spec unix(term) :: {:error, :invalid_argument}
+  def unix(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given ISO datetime `bitsring`.
@@ -167,18 +167,18 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.iso(49)
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.iso(~N[2000-01-01 04:00:07.000000])
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
   """
-  @spec iso(String.t) :: {atom, String.t}
+  @spec iso(String.t) :: {:ok, String.t}
   def iso(datetime) when is_bitstring(datetime) do
     {:ok, do_iso(datetime)}
   end
 
-  @spec iso(term) :: {atom, atom}
-  def iso(_input), do: {:error, :invalid_type}
+  @spec iso(term) :: {:error, :invalid_argument}
+  def iso(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given Elixir `NaiveDateTime` struct.
@@ -210,18 +210,18 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.naive(49)
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.naive("clock pls")
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
   """
-  @spec naive(struct) :: {atom, String.t}
+  @spec naive(struct) :: {:ok, String.t}
   def naive(datetime) when is_map(datetime) do
     {:ok, do_elixir_native_format(datetime)}
   end
 
-  @spec naive(term) :: {atom, atom}
-  def naive(_input), do: {:error, :invalid_type}
+  @spec naive(term) :: {:error, :invalid_argument}
+  def naive(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given Elixir `Time` struct.
@@ -253,18 +253,18 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.time(49)
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.time("clock pls")
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
   """
-  @spec time(struct) :: {atom, String.t}
+  @spec time(struct) :: {:ok, String.t}
   def time(time) when is_map(time) do
     {:ok, do_elixir_native_format(time)}
   end
 
-  @spec time(term) :: {atom, atom}
-  def time(_input), do: {:error, :invalid_type}
+  @spec time(term) :: {:error, :invalid_argument}
+  def time(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given Elixir `DateTime` struct.
@@ -348,18 +348,18 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.datetime(49)
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.datetime("clock pls")
-      {:error, :invalid_type}
+      {:error, :invalid_argument}
   """
-  @spec datetime(struct) :: {atom, String.t}
+  @spec datetime(struct) :: {:ok, String.t}
   def datetime(datetime) when is_map(datetime) do
     {:ok, do_elixir_native_format(datetime)}
   end
 
-  @spec datetime(term) :: {atom, atom}
-  def datetime(_input), do: {:error, :invalid_type}
+  @spec datetime(term) :: {:error, :invalid_argument}
+  def datetime(_input), do: {:error, :invalid_argument}
 
   # Private functions
 
