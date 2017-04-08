@@ -4,22 +4,52 @@ defmodule EmojiClock do
   """
 
   @doc ~S"""
-  Returns a clock emoji for the `local` hour.
+  Returns a clock emoji for the `local` hour. Accepts an optional `integer` offset.
 
   ## Examples
 
-  > If it's 18:37 you'll get "🕕"
-
-      iex> clock = EmojiClock.now
+      iex> # If it's 18:37 you'll get "🕕"
+      iex> clock = EmojiClock.now!
       iex> is_bitstring(clock)
       true
   """
-  @spec now() :: String.t
-  def now do
-    Timex.local
-    |> format_time
-    |> emoji
+  @spec now!(integer) :: String.t
+  def now!(offset \\ 0) do
+    formated_time = format_time(Timex.local)
+    hour_with_offset = formated_time + offset
+    emoji(hour_with_offset)
   end
+
+  @doc ~S"""
+  Returns a clock emoji for the `local` hour. Accepts an optional `integer` offset.
+
+  ## Examples
+
+      iex> # If it's 18:37 you'll get {:ok, "🕕"}
+      iex> {:ok, clock} = EmojiClock.now
+      iex> is_bitstring(clock)
+      true
+
+      iex> # If it's 18:37 you'll get {:ok, "🕓"}
+      iex> {:ok, clock} = EmojiClock.now(-2)
+      iex> is_bitstring(clock)
+      true
+
+  Invalid input returns an error:
+
+      iex> EmojiClock.now("+8")
+      {:error, :invalid_argument}
+  """
+  @spec now(integer) :: {atom, String.t}
+  def now(offset \\ 0)
+  def now(offset) when is_integer(offset) do
+    formated_time = format_time(Timex.local)
+    hour_with_offset = formated_time + offset
+    {:ok, emoji(hour_with_offset)}
+  end
+
+  @spec now(term) :: {atom, atom}
+  def now(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given `integer` hour between 0 and 12.
