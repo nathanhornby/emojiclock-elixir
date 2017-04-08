@@ -81,17 +81,17 @@ defmodule EmojiClock do
   Invalid input returns an error:
 
       iex> EmojiClock.hour("2")
-      {:error, :invalid_input}
+      {:error, :invalid_argument}
 
       iex> EmojiClock.hour(16)
-      {:error, :invalid_input}
+      {:error, :invalid_argument}
   """
   @spec hour(non_neg_integer) :: {atom, String.t}
   def hour(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
     {:ok, emoji(hour)}
   end
   @spec hour(term) :: {atom, atom}
-  def hour(_input), do: {:error, :invalid_input}
+  def hour(_input), do: {:error, :invalid_argument}
 
   @doc ~S"""
   Returns a clock emoji for a given UNIX timestamp `integer`.
