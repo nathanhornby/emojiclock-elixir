@@ -241,10 +241,36 @@ defmodule EmojiClock do
 
   ## Examples
 
-      iex> EmojiClock.datetime!(%DateTime{calendar: Calendar.ISO, day: 7, hour: 15, microsecond: {817699, 6}, minute: 5, month: 4, second: 43, std_offset: 0, time_zone: "Etc/UTC", utc_offset: 0, year: 2017, zone_abbr: "UTC"})
+      iex> datetime = %DateTime{
+      ...>              calendar: Calendar.ISO,
+      ...>              day: 7,
+      ...>              hour: 15,
+      ...>              microsecond: {817699, 6},
+      ...>              minute: 5,
+      ...>              month: 4,
+      ...>              second: 43,
+      ...>              std_offset: 0,
+      ...>              time_zone: "Etc/UTC",
+      ...>              utc_offset: 0,
+      ...>              year: 2017,
+      ...>              zone_abbr: "UTC"}
+      iex> EmojiClock.datetime!(datetime)
       "🕒"
 
-      iex> EmojiClock.datetime!(%DateTime{calendar: Calendar.ISO, day: 3, hour: 8, microsecond: {000000, 6}, minute: 7, month: 1, second: 23, std_offset: 0, time_zone: "Etc/UTC", utc_offset: 0, year: 1985, zone_abbr: "UTC"})
+      iex> datetime = %DateTime{
+      ...>              calendar: Calendar.ISO,
+      ...>              day: 3,
+      ...>              hour: 8,
+      ...>              microsecond: {000000, 6},
+      ...>              minute: 42,
+      ...>              month: 1,
+      ...>              second: 23,
+      ...>              std_offset: 0,
+      ...>              time_zone: "Etc/UTC",
+      ...>              utc_offset: 0,
+      ...>              year: 1985,
+      ...>              zone_abbr: "UTC"}
+      iex> EmojiClock.datetime!(datetime)
       "🕗"
   """
   @spec datetime!(struct) :: String.t
@@ -257,11 +283,37 @@ defmodule EmojiClock do
 
   ## Examples
 
-      iex> EmojiClock.datetime(%DateTime{calendar: Calendar.ISO, day: 7, hour: 15, microsecond: {817699, 6}, minute: 5, month: 4, second: 43, std_offset: 0, time_zone: "Etc/UTC", utc_offset: 0, year: 2017, zone_abbr: "UTC"})
+      iex> datetime = %DateTime{
+      ...>              calendar: Calendar.ISO,
+      ...>              day: 7,
+      ...>              hour: 15,
+      ...>              microsecond: {817699, 6},
+      ...>              minute: 5,
+      ...>              month: 4,
+      ...>              second: 43,
+      ...>              std_offset: 0,
+      ...>              time_zone: "Etc/UTC",
+      ...>              utc_offset: 0,
+      ...>              year: 2017,
+      ...>              zone_abbr: "UTC"}
+      iex> EmojiClock.datetime(datetime)
       {:ok, "🕒"}
 
-      iex> EmojiClock.datetime!(%DateTime{calendar: Calendar.ISO, day: 3, hour: 8, microsecond: {000000, 6}, minute: 7, month: 1, second: 23, std_offset: 0, time_zone: "Etc/UTC", utc_offset: 0, year: 1985, zone_abbr: "UTC"})
-      "🕗"
+      iex> datetime = %DateTime{
+      ...>              calendar: Calendar.ISO,
+      ...>              day: 3,
+      ...>              hour: 8,
+      ...>              microsecond: {000000, 6},
+      ...>              minute: 42,
+      ...>              month: 1,
+      ...>              second: 23,
+      ...>              std_offset: 0,
+      ...>              time_zone: "Etc/UTC",
+      ...>              utc_offset: 0,
+      ...>              year: 1985,
+      ...>              zone_abbr: "UTC"}
+      iex> EmojiClock.datetime(datetime)
+      {:ok, "🕗"}
 
   Invalid input returns an error:
 
