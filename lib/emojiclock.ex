@@ -1,9 +1,6 @@
 defmodule EmojiClock do
   @moduledoc """
-  An Elixir module for giving you an emoji clock for a specific hour. See the available functions for various input formats.
-
-      iex> EmojiClock.time!(~T[02:17:47.179])
-      "🕑"
+  Returns a clock emoji for a given hour.
   """
 
   @doc ~S"""
@@ -35,7 +32,7 @@ defmodule EmojiClock do
       iex> EmojiClock.hour!(12)
       "🕛"
   """
-  @spec hour!(integer) :: String.t
+  @spec hour!(non_neg_integer) :: String.t
   def hour!(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
     emoji(hour)
   end
@@ -59,7 +56,7 @@ defmodule EmojiClock do
       iex> EmojiClock.hour(16)
       {:error, :invalid_input}
   """
-  @spec hour(integer) :: {atom, String.t}
+  @spec hour(non_neg_integer) :: {atom, String.t}
   def hour(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
     {:ok, emoji(hour)}
   end
@@ -78,7 +75,7 @@ defmodule EmojiClock do
       "🕙"
 
   """
-  @spec unix!(integer) :: String.t
+  @spec unix!(pos_integer) :: String.t
   def unix!(timestamp) when is_integer(timestamp) do
     do_unix(timestamp)
   end
@@ -102,7 +99,7 @@ defmodule EmojiClock do
       iex> EmojiClock.unix("clock pls")
       {:error, :invalid_type}
   """
-  @spec unix(integer) :: {atom, String.t}
+  @spec unix(pos_integer) :: {atom, String.t}
   def unix(timestamp) when is_integer(timestamp) do
     {:ok, do_unix(timestamp)}
   end

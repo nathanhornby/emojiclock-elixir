@@ -1,18 +1,26 @@
 defmodule EmojiClock.Mixfile do
   use Mix.Project
 
+  @version "1.0.1"
+
   def project do
     [app: :emojiclock,
-     version: "1.0.0",
+     version: @version,
      description: description(),
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      package: package(),
      deps: deps(),
-     # Docs:
-     name: "🕒 emojiclock",
-     source_url: "https://github.com/nathanhornby/emojiclock-elixir"]
+     # ExDoc:
+     name: "🕒 EmojiClock",
+     source_url: "https://github.com/nathanhornby/emojiclock-elixir",
+     docs: [
+       source_ref: "v#{@version}",
+       main: "readme",
+       extras: ["README.md"]
+       ]
+     ]
   end
 
   def application do
@@ -21,7 +29,7 @@ defmodule EmojiClock.Mixfile do
 
   defp description do
     """
-    An Elixir module for giving you an emoji clock for a specific hour.
+    🕒 An Elixir module for giving you an emoji clock for a given hour.
     """
   end
 
