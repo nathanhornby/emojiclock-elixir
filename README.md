@@ -15,7 +15,7 @@ The package can be installed by adding `emojiclock` to your list of dependencies
 
 ```elixir
 def deps do
-  [{:emojiclock, "~> 1.0.0"}]
+  [{:emojiclock, "~> 2.0.1"}]
 end
 ```
 
