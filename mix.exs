@@ -42,6 +42,7 @@ defmodule EmojiClock.Mixfile do
 
   defp deps do
     [{:timex, "~> 3.0"},
-     {:ex_doc, "~> 0.14", only: :dev, runtime: false}]
+     {:ex_doc, "~> 0.14", only: :dev, runtime: false},
+     {:credo, "~> 0.7", only: [:dev, :test]}]
   end
 end
