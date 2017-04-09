@@ -62,7 +62,7 @@ defmodule EmojiClock do
       "🕛"
   """
   @spec hour!(non_neg_integer) :: String.t
-  def hour!(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
+  def hour!(hour) when is_integer(hour) and hour >= 0 and hour <= 12 do
     emoji(hour)
   end
 
@@ -86,7 +86,7 @@ defmodule EmojiClock do
       {:error, :invalid_argument}
   """
   @spec hour(non_neg_integer) :: {:ok, String.t} | {:error, atom}
-  def hour(hour) when is_integer(hour) and hour >= 1 and hour <= 12 do
+  def hour(hour) when is_integer(hour) and hour >= 0 and hour <= 12 do
     {:ok, emoji(hour)}
   end
 
