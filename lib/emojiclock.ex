@@ -3,6 +3,19 @@ defmodule EmojiClock do
   Returns a clock emoji for a given hour.
   """
 
+  @type datetime :: %DateTime{calendar: module,
+                              day: non_neg_integer,
+                              hour: non_neg_integer,
+                              microsecond: {non_neg_integer, non_neg_integer},
+                              minute: non_neg_integer,
+                              month: non_neg_integer,
+                              second: non_neg_integer,
+                              std_offset: integer,
+                              time_zone: String.t,
+                              utc_offset: integer,
+                              year: non_neg_integer,
+                              zone_abbr: String.t}
+
   @doc ~S"""
   Returns a clock emoji for the `local` hour. Accepts an optional `integer` offset.
 
@@ -266,39 +279,37 @@ defmodule EmojiClock do
 
   ## Examples
 
-      iex> datetime = %DateTime{
-      ...>              calendar: Calendar.ISO,
-      ...>              day: 7,
-      ...>              hour: 15,
-      ...>              microsecond: {817699, 6},
-      ...>              minute: 5,
-      ...>              month: 4,
-      ...>              second: 43,
-      ...>              std_offset: 0,
-      ...>              time_zone: "Etc/UTC",
-      ...>              utc_offset: 0,
-      ...>              year: 2017,
-      ...>              zone_abbr: "UTC"}
+      iex> datetime = %DateTime{calendar: Calendar.ISO,
+      ...>                      day: 7,
+      ...>                      hour: 15,
+      ...>                      microsecond: {817699, 6},
+      ...>                      minute: 5,
+      ...>                      month: 4,
+      ...>                      second: 43,
+      ...>                      std_offset: 0,
+      ...>                      time_zone: "Etc/UTC",
+      ...>                      utc_offset: 0,
+      ...>                      year: 2017,
+      ...>                      zone_abbr: "UTC"}
       iex> EmojiClock.datetime!(datetime)
       "🕒"
 
-      iex> datetime = %DateTime{
-      ...>              calendar: Calendar.ISO,
-      ...>              day: 3,
-      ...>              hour: 8,
-      ...>              microsecond: {000000, 6},
-      ...>              minute: 42,
-      ...>              month: 1,
-      ...>              second: 23,
-      ...>              std_offset: 0,
-      ...>              time_zone: "Etc/UTC",
-      ...>              utc_offset: 0,
-      ...>              year: 1985,
-      ...>              zone_abbr: "UTC"}
+      iex> datetime = %DateTime{calendar: Calendar.ISO,
+      ...>                      day: 3,
+      ...>                      hour: 8,
+      ...>                      microsecond: {000000, 6},
+      ...>                      minute: 42,
+      ...>                      month: 1,
+      ...>                      second: 23,
+      ...>                      std_offset: 0,
+      ...>                      time_zone: "Etc/UTC",
+      ...>                      utc_offset: 0,
+      ...>                      year: 1985,
+      ...>                      zone_abbr: "UTC"}
       iex> EmojiClock.datetime!(datetime)
       "🕗"
   """
-  @spec datetime!(struct) :: String.t
+  @spec datetime!(datetime) :: String.t
   def datetime!(datetime) do
     do_elixir_native_format(datetime)
   end
@@ -308,35 +319,33 @@ defmodule EmojiClock do
 
   ## Examples
 
-      iex> datetime = %DateTime{
-      ...>              calendar: Calendar.ISO,
-      ...>              day: 7,
-      ...>              hour: 15,
-      ...>              microsecond: {817699, 6},
-      ...>              minute: 5,
-      ...>              month: 4,
-      ...>              second: 43,
-      ...>              std_offset: 0,
-      ...>              time_zone: "Etc/UTC",
-      ...>              utc_offset: 0,
-      ...>              year: 2017,
-      ...>              zone_abbr: "UTC"}
+      iex> datetime = %DateTime{calendar: Calendar.ISO,
+      ...>                      day: 7,
+      ...>                      hour: 15,
+      ...>                      microsecond: {817699, 6},
+      ...>                      minute: 5,
+      ...>                      month: 4,
+      ...>                      second: 43,
+      ...>                      std_offset: 0,
+      ...>                      time_zone: "Etc/UTC",
+      ...>                      utc_offset: 0,
+      ...>                      year: 2017,
+      ...>                      zone_abbr: "UTC"}
       iex> EmojiClock.datetime(datetime)
       {:ok, "🕒"}
 
-      iex> datetime = %DateTime{
-      ...>              calendar: Calendar.ISO,
-      ...>              day: 3,
-      ...>              hour: 8,
-      ...>              microsecond: {000000, 6},
-      ...>              minute: 42,
-      ...>              month: 1,
-      ...>              second: 23,
-      ...>              std_offset: 0,
-      ...>              time_zone: "Etc/UTC",
-      ...>              utc_offset: 0,
-      ...>              year: 1985,
-      ...>              zone_abbr: "UTC"}
+      iex> datetime = %DateTime{calendar: Calendar.ISO,
+      ...>                      day: 3,
+      ...>                      hour: 8,
+      ...>                      microsecond: {000000, 6},
+      ...>                      minute: 42,
+      ...>                      month: 1,
+      ...>                      second: 23,
+      ...>                      std_offset: 0,
+      ...>                      time_zone: "Etc/UTC",
+      ...>                      utc_offset: 0,
+      ...>                      year: 1985,
+      ...>                      zone_abbr: "UTC"}
       iex> EmojiClock.datetime(datetime)
       {:ok, "🕗"}
 
@@ -348,7 +357,7 @@ defmodule EmojiClock do
       iex> EmojiClock.datetime("clock pls")
       {:error, :invalid_argument}
   """
-  @spec datetime(struct) :: {:ok, String.t} | {:error, atom}
+  @spec datetime(datetime) :: {:ok, String.t} | {:error, atom}
   def datetime(datetime) when is_map(datetime) do
     {:ok, do_elixir_native_format(datetime)}
   end
